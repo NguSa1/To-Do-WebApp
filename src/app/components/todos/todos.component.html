@@ -1,7 +1,21 @@
 <div class="todos">
-    <div class="todo" *ngFor="let todo of todos; let i = index;">
-        <div class="id">0 </div>
-        <div class="content">My todo</div>
-        <button class="delete">Remove</button>
+    <!-- form input handler for (submit) -->
+    <form (submit)="addTodo()">
+        <!-- ngModel: two way data binding -->
+        <input 
+            type="text" 
+            name="inputTodo" 
+            placeholder="Enter todo..."
+            class="todo-input"
+            [(ngModel)]="inputTodo"
+        />
+        <input type="submit" value="Add Todo" class="todo-submit" />
+    </form>
+    <!-- ? : is if else, class is todo but if completed is true than add class done -->
+    <div *ngFor="let todo of todos; let i = index;" class="todo {{ todo.completed ? 'done' : '' }}">
+        <div class="id">{{i}}</div>
+        <!-- on click, do toggleDone with passed in parameter i -->
+        <div class="content" (click)="toggleDone(i)">{{todo.content}}</div>
+        <button class="delete" (click)="deleteTodo(i)">Remove</button>
     </div>
 </div>
